@@ -16,7 +16,7 @@ class CreateResourceStudentTable extends Migration
         Schema::create('resource_student', function (Blueprint $table) {
             $table->id();
             $table->integer('student_id')->unsigned();
-            $table->foreign('student_id')->references('id')->on('students');
+            $table->foreign('student_id')->references('id')->on('users');
             $table->integer('resource_id')->unsigned();
             $table->foreign('resource_id')->references('id')->on('resources');
             $table->softDeletes();

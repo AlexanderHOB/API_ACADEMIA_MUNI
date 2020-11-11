@@ -15,7 +15,6 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->integer('id')->unsigned();
-            $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
             $table->string('name',80);
             $table->string('lastname',120);
             $table->string('dni',8)->unique();
@@ -27,6 +26,7 @@ class CreateStudentsTable extends Migration
             $table->string('relationship',80)->nullable();
             $table->integer('representative_id')->unsigned();
             $table->foreign('representative_id')->references('id')->on('representatives');
+            $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
