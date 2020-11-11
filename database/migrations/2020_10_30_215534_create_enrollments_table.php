@@ -18,7 +18,7 @@ class CreateEnrollmentsTable extends Migration
             $table->id();
             $table->string('state')->default(Enrollment::STATE_AVAILABLE);
             $table->integer('student_id')->unsigned();
-            $table->foreign('student_id')->references('id')->on('students');
+            $table->foreign('student_id')->references('id')->on('users');
             $table->integer('cycle_id')->unsigned();
             $table->foreign('cycle_id')->references('id')->on('cycles');
             $table->integer('career_id')->unsigned();
