@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Voucher extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
     const STATE_PENDIENTE='pendiente';
     const STATE_ACTIVADO='activado';
     public $transformer = VoucherTransformer::class;

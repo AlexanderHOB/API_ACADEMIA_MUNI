@@ -33,6 +33,8 @@ Route::resource('areas.students','Area\AreaStudentController',['only'=>['index']
 * User
 */
 Route::resource('users','User\UserController',['only'=>['index','show']]);
+Route::get('/me','User\UserController@me');
+Route::get('/email','User\UserController@email');
 
 
 /**
@@ -83,6 +85,7 @@ Route::resource('students.resources','Student\StudentResourceController',['only'
 Route::resource('students.vouchers','Student\StudentVoucherController',['only'=>['index']]);
 
 Route::resource('students.cycles.enrollments','Enrollment\EnrollmentStudentCycleController',['only'=>['store']]);
+
 
 /**
  * Voucher
