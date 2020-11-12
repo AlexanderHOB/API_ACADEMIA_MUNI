@@ -15,8 +15,8 @@ class StudentController extends ApiController
     public function __construct()
     {
         // token
-        $this->middleware('client.credentials')->only(['index']);
-        // $this->middleware('auth:api')->except(['index']);
+        $this->middleware('client.credentials')->only(['index','store']);
+        $this->middleware('auth:api')->except(['index','store']);
         $this->middleware('transform.input:'. StudentTransformer::class)->only(['store','update']);
 
     }
@@ -92,7 +92,7 @@ class StudentController extends ApiController
      */
     public function show(Student $student)
     {
-        //
+        return $this->showOne($student);
     }
 
     /**

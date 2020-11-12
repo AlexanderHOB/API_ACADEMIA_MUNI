@@ -12,8 +12,9 @@ class RepresentativeController extends ApiController
     public function __construct()
     {
         // token 
-        $this->middleware('client.credentials')->only(['index']);
-        $this->middleware('auth:api')->except(['index','show']);
+        $this->middleware('auth:api')->except(['index','store']);
+
+        $this->middleware('client.credentials')->only(['index','store']);
 
         $this->middleware('transform.input:'. RepresentativeTransformer::class)->only(['store']);
 
@@ -59,12 +60,6 @@ class RepresentativeController extends ApiController
      * @param  \App\Models\Representative  $representative
      * @return \Illuminate\Http\Response
      */
-    public function dni($dni)
-    {   
-        $representative = Representative::where('dni','=',$dni);
-        
-        return $this->showOne($representative);
-    }
 
     /**
      * Update the specified resource in storage.
