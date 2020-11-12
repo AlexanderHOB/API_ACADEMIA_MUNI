@@ -14,6 +14,7 @@ class EnrollmentStudentCycleController extends ApiController
 { 
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('transform.input:'. EnrollmentTransformer::class)->only(['store']);
 
     }
@@ -24,11 +25,11 @@ class EnrollmentStudentCycleController extends ApiController
             'career_id'     => 'required|integer',
         ];
         $this->validate($request,$rules);
-        $data  = $request->all();
+        $data               = $request->all();
         $data['student_id'] = $student->id;
-        $data['cycle_id'] = $cycle->id;
-        $data['state'] = Enrollment::STATE_AVAILABLE;
-        $enrollment = Enrollment::create($data);
+        $data['cycle_id']   = $cycle->id;
+        $data['state']      = Enrollment::STATE_AVAILABLE;
+        $enrollment         = Enrollment::create($data);
         return $this->showOne($enrollment);
         
     }

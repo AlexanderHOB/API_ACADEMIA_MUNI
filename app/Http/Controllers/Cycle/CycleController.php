@@ -8,11 +8,14 @@ use Illuminate\Http\Request;
 
 class CycleController extends ApiController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        parent::__construct();
+        // token
+        // $this->middleware('client.credentials')->only(['index']);
+        // $this->middleware('auth:api')->except(['index']);
+
+    }
     public function index()
     {
         $cycles= Cycle::get();

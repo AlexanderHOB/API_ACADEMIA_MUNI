@@ -8,11 +8,15 @@ use App\Http\Controllers\ApiController;
 
 class AreaController extends ApiController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        parent::__construct();
+        // token
+
+        // $this->middleware('client.credentials')->only(['index']);
+        // $this->middleware('auth:api')->except(['index']);
+
+    }
     public function index()
     {
         $areas = Area::get();
