@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Area;
 
 use App\Models\Area;
 use Illuminate\Http\Request;
+use App\Transformers\AreaTransformer;
 use App\Http\Controllers\ApiController;
 
 class AreaController extends ApiController
@@ -13,8 +14,9 @@ class AreaController extends ApiController
         parent::__construct();
         // token
 
-        $this->middleware('client.credentials')->only(['index']);
-        $this->middleware('auth:api')->except(['index']);
+        $this->middleware('client.credentials')->only(['index','show']);
+        $this->middleware('auth:api')->except(['index','show']);
+        $this->middleware('transform.input:'. AreaTransformer::class)->only(['store']);
 
     }
     public function index()
@@ -31,7 +33,16 @@ class AreaController extends ApiController
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'name'          => 'required|string|min:2',
+            'state'         => 'string',
+        ];  
+        $this->validate($request,$rules);
+        if(!$request->has('state')){
+            $request->state=Area::AREA_AVAILABLE;
+        }
+        $area = Area::create($request->all());
+        return $this->showOne($area);
     }
 
     /**
@@ -42,20 +53,8 @@ class AreaController extends ApiController
      */
     public function show(Area $area)
     {
-        //
+        return $this->showOne($area);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Area  $area
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Area $area)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *

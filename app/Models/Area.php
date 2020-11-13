@@ -18,7 +18,7 @@ class Area extends Model
     public $transformer = AreaTransformer::class;
 
     protected $dates = ['deleted_at'];
-    protected $fillables=[
+    protected $fillable=[
         'name',
         'description',
         'state'

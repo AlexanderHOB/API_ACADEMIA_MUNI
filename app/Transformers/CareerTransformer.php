@@ -40,6 +40,21 @@ class CareerTransformer extends TransformerAbstract
             'estado'            =>  (int)   $career->state,
             'fechaCreacion'     =>  (string) $career->created_at,
             'fechaActualizacion'=>  (string) $career->update_at,
+            'links' =>[
+                [
+                    'rel'   =>  'self',
+                    'href'  =>  route('careers.show',$career->id),
+                ],   
+                [
+                    'rel'   =>  'career.students',
+                    'href'  =>  route('careers.students.index',$career->id),
+                ],  
+                [
+                    'rel'   => 'career.courses',
+                    'href'  =>  route('careers.courses.index',$career->id),
+
+                ]
+            ]
         ];
     }
     public static function originalAttribute($index)

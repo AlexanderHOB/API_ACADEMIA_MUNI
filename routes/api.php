@@ -23,7 +23,7 @@ Route::post('oauth/token','\Laravel\Passport\Http\Controllers\AccessTokenControl
 /*
 * Areas
 */
-Route::resource('areas','Area\AreaController',['only'=>['index','show']]);
+Route::resource('areas','Area\AreaController',['only'=>['index','show','store']]);
 Route::resource('areas.careers','Area\AreaCareerController',['only'=>['index']]);
 Route::resource('areas.courses','Area\AreaCourseController',['only'=>['index']]);
 Route::resource('areas.students','Area\AreaStudentController',['only'=>['index']]);
