@@ -11,7 +11,6 @@ class AreaController extends ApiController
 {
     public function __construct()
     {
-        parent::__construct();
         // token
 
         $this->middleware('client.credentials')->only(['index','show']);
