@@ -13,8 +13,8 @@ class AreaController extends ApiController
         parent::__construct();
         // token
 
-        // $this->middleware('client.credentials')->only(['index']);
-        // $this->middleware('auth:api')->except(['index']);
+        $this->middleware('client.credentials')->only(['index']);
+        $this->middleware('auth:api')->except(['index']);
 
     }
     public function index()
