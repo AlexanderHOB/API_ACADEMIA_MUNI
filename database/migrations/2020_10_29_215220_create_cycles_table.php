@@ -17,10 +17,12 @@ class CreateCyclesTable extends Migration
         Schema::create('cycles', function (Blueprint $table) {
             $table->id();
             $table->string('name',80);
-            $table->string('description',150);
+            $table->string('description',150)->nullable();
             $table->smallInteger('quantity');
             $table->string('duration');
             $table->string('state',50)->default(Cycle::CYCLE_AVAILABLE);
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

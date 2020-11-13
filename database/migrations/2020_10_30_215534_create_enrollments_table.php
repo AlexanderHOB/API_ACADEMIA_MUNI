@@ -16,7 +16,7 @@ class CreateEnrollmentsTable extends Migration
     {
         Schema::create('enrollments', function (Blueprint $table) {
             $table->id();
-            $table->string('state')->default(Enrollment::STATE_AVAILABLE);
+            $table->string('state')->default(Enrollment::STATE_PENDING);
             $table->integer('student_id')->unsigned();
             $table->foreign('student_id')->references('id')->on('users');
             $table->integer('cycle_id')->unsigned();

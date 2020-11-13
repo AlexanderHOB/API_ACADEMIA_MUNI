@@ -18,10 +18,10 @@ class Career extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillables=[
+    protected $fillable=[
         'name',
         'description',
-        'areas_id',
+        'area_id',
         'state'
     ];
     

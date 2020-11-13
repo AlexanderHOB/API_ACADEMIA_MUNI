@@ -38,7 +38,7 @@ class VoucherController extends ApiController
         ];
         // dd($request);
         $this->validate($request,$rules);   
-
+        // dd($request->all());
         $data = $request->all();
 
         $data['image'] = $request->image->store('','voucher');

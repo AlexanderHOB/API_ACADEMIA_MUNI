@@ -36,9 +36,11 @@ class CycleTransformer extends TransformerAbstract
             'id'                =>  (int)    $cycle->id,
             'nombre'            =>  (string) $cycle->name,
             'descripcion'       =>  (string) $cycle->description,
-            'estado'            =>  (int)   $cycle->state,
+            'estado'            =>  (string)   $cycle->state,
             'cantidad'          =>  (int)   $cycle->quantity,
             'duracion'          => (string) $cycle->duration,
+            'inicio'            => (string) $cycle->start_date,
+            'fin'               => (string) $cycle->end_date,
         ];
     }
     public static function originalAttribute($index)
@@ -47,11 +49,33 @@ class CycleTransformer extends TransformerAbstract
             'id'                    => 'id',
             'nombre'                => 'name',
             'descripcion'           => 'description',
+            'cantidad'              => 'quantity',
+            'duracion'              => 'duration',
             'estado'                =>  'state',
+            'inicio'                =>  'start_date',
+            'fin'                   => 'end_date',
             'fechaCreacion'         => 'created_at',
             'fechaActualizacion'    => 'updated_at',
             'fechaEliminacion'      => 'deleted_at',
         ];
+        return isset($attributes[$index]) ? $attributes[$index] : null;
+    }
+
+    public static function transformedAttribute($index){
+        $attributes = [
+            'id'            => 'id',
+            'name'          => 'nombre',
+            'description'   => 'descripcion',
+            'quantity'      => 'cantidad',
+            'duration'      => 'duracion',
+            'state'         => 'estado',
+            'start_date'    => 'inicio',
+            'end_date'      => 'fin',
+            'created_at'    => 'fechaCreacion',
+            'updated_at'    => 'fechaActualizacion',
+            'deleted_at'    => 'fechaEliminacion',
+        ];
+
         return isset($attributes[$index]) ? $attributes[$index] : null;
     }
 }

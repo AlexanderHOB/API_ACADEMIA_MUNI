@@ -28,7 +28,7 @@ class EnrollmentFactory extends Factory
             'student_id'            => Student::all()->random()->id,
             'cycle_id'              => Cycle::all()->random()->id,
             'career_id'             => Career::all()->random()->id,
-            'state'                 => Enrollment::STATE_AVAILABLE,
+            'state'                 => Enrollment::STATE_PENDING,
         ];
     }
 }

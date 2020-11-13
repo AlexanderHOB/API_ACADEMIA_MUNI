@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Career;
 
-use App\Http\Controllers\ApiController;
 use App\Models\Career;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
+use App\Transformers\CareerTransformer;
 
 class CareerController extends ApiController
 {
@@ -12,8 +13,9 @@ class CareerController extends ApiController
     {
         parent::__construct();
         // token
-        // $this->middleware('client.credentials')->only(['index']);
-        // $this->middleware('auth:api')->except(['index']);
+        $this->middleware('client.credentials')->only(['index']);
+        $this->middleware('auth:api')->except(['index']);
+        $this->middleware('transform.input:'. CareerTransformer::class)->only(['store','update']);
 
     }
     public function index()
@@ -22,11 +24,22 @@ class CareerController extends ApiController
         // return $careers;
         return $this->showAll($careers);
     }
-
-
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'name'          => 'required|string|min:2',
+            'area_id'       => 'integer|required',
+            'state'         => 'string',
+        ];  
+        $this->validate($request,$rules);
+
+        
+
+        if(!$request->has('state')){
+            $request->state=Career::CAREER_AVAILABLE;
+        }
+        $cycle = Career::create($request->all());
+        return $this->showOne($cycle);
     }
 
     /**

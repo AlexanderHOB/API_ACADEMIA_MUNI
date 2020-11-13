@@ -22,10 +22,11 @@ class CycleFactory extends Factory
     public function definition()
     {
         return [
-            'name'          => $this->faker->name,
-            'description'   => $this->faker->unique()->safeEmail,
+            'name'          => $this->faker->randomElement(['Ciclo Repaso','Ciclo Intensivo','Ciclo Normal']),
+            'description'   => $this->faker->realText($maxNbChars = 20, $indexSize = 1),
             'quantity'      => $this->faker->randomElement([12,18]),
             'duration'      => $this->faker->randomElement(['Días','Semanas','Meses']),
+            
         ];
     }
 }

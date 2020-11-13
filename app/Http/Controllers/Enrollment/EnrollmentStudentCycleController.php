@@ -28,7 +28,7 @@ class EnrollmentStudentCycleController extends ApiController
         $data               = $request->all();
         $data['student_id'] = $student->id;
         $data['cycle_id']   = $cycle->id;
-        $data['state']      = Enrollment::STATE_AVAILABLE;
+        $data['state']      = Enrollment::STATE_PENDING;
         $enrollment         = Enrollment::create($data);
         return $this->showOne($enrollment);
         

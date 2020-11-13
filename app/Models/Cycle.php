@@ -12,20 +12,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Cycle extends Model
 {
     use HasFactory,SoftDeletes;
+    public $transformer = CycleTransformer::class;
     const CYCLE_AVAILABLE='disponible';
     const CYCLE_FINISH='culminado';
     const CYCLE_PROX='proximamente';
 
-    public $transformer = CycleTransformer::class;
 
     protected $dates = ['deleted_at'];
 
-    protected $fillables=[
+    protected $fillable=[
         'name',
         'description',
         'quantity',
         'duration',
-        'state'
+        'state',
+        'start_date',
+        'end_date'
     ];
     
     public function areas(){

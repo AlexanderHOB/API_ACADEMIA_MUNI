@@ -57,7 +57,7 @@ return [
 
         'voucher' => [
             'driver'        => 'local',
-            'root'          => public_path('assets/images/drivers'),
+            'root'          => public_path('assets/images/vouchers'),
             'visibility'    => 'public',
         ],
         

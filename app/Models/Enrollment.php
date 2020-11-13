@@ -11,8 +11,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Enrollment extends Model
 {
     use HasFactory, SoftDeletes;
-    const STATE_AVAILABLE='Abierto';
-    const STATE_NO_AVAILABLE='Cerrado';
+    const STATE_PENDING='pending';
+    const STATE_PROGRESS='progress';
+    const STATE_TIMEOUT='timeout';
 
     public $transformer = EnrollmentTransformer::class;
 

@@ -40,7 +40,7 @@ Route::get('/email','User\UserController@email');
 /**
  * Career
  */
-Route::resource('careers','Career\CareerController',['only'=>['index','show']]);
+Route::resource('careers','Career\CareerController',['only'=>['index','show','store']]);
 Route::resource('careers.students','Career\CareerStudentController',['only'=>['index']]);
 Route::resource('careers.courses','Career\CareerCourseController',['only'=>['index']]);
 
@@ -55,7 +55,7 @@ Route::resource('courses.students','Course\CourseStudentController',['only'=>['i
 /**
  * Cycles
  */
-Route::resource('cycles','Cycle\CycleController',['only'=>['index','show']]);
+Route::resource('cycles','Cycle\CycleController',['only'=>['index','show','store']]);
 Route::resource('cycles.students','Cycle\CycleStudentController',['only'=>['index']]);
 Route::resource('cycles.representatives','Cycle\CycleRepresentativeController',['only'=>['index']]);
 
