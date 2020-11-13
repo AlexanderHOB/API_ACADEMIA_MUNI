@@ -11,7 +11,6 @@ class CareerController extends ApiController
 {
     public function __construct()
     {
-        parent::__construct();
         // token
         $this->middleware('client.credentials')->only(['index']);
         $this->middleware('auth:api')->except(['index']);
@@ -21,7 +20,6 @@ class CareerController extends ApiController
     public function index()
     {
         $careers = Career::get();
-        // return $careers;
         return $this->showAll($careers);
     }
     public function store(Request $request)
@@ -32,9 +30,6 @@ class CareerController extends ApiController
             'state'         => 'string',
         ];  
         $this->validate($request,$rules);
-
-        
-
         if(!$request->has('state')){
             $request->state=Career::CAREER_AVAILABLE;
         }
@@ -42,48 +37,44 @@ class CareerController extends ApiController
         return $this->showOne($cycle);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Career  $career
-     * @return \Illuminate\Http\Response
-     */
     public function show(Career $career)
     {
-        //
+        return $this->showOne($career);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Career  $career
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Career $career)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Career  $career
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Career $career)
     {
-        //
+        $rules=[
+            'name'          => 'string|min:2',
+            'description'   => 'string|min:2',
+            'area_id'       => 'integer',
+            'state'         => 'string',
+        ];
+        $this->validate($request,$rules);
+        if($request->has('name')){
+            $career->name=$request->name;
+        }
+        if($request->has('state')){
+            $career->state=$request->state;
+        }
+        if($request->has('area_id')){
+            $career->area_id=$request->area_id;
+        }
+        if($request->has('description')){
+            $career->description=$request->description;
+        }
+        if(!$career->isDirty()){
+            return $this->errorResponse('Se debe especificar al menos un valor diferente para actualizar',422);
+        }
+        $career->save();
+        return $this->showOne($career);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Career  $career
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Career $career)
     {
-        //
+        $career->delete();
+        return $this->showOne($career);
     }
 }

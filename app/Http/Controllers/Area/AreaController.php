@@ -15,7 +15,7 @@ class AreaController extends ApiController
 
         $this->middleware('client.credentials')->only(['index','show']);
         $this->middleware('auth:api')->except(['index','show']);
-        $this->middleware('transform.input:'. AreaTransformer::class)->only(['store']);
+        $this->middleware('transform.input:'. AreaTransformer::class)->only(['store','update']);
 
     }
     public function index()
@@ -24,12 +24,6 @@ class AreaController extends ApiController
         return $this->showAll($areas);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $rules = [
@@ -44,36 +38,39 @@ class AreaController extends ApiController
         return $this->showOne($area);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Area  $area
-     * @return \Illuminate\Http\Response
-     */
     public function show(Area $area)
     {
         return $this->showOne($area);
     }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Area  $area
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function update(Request $request, Area $area)
     {
-        //
+        $rules=[
+            'name'          => 'string|min:2',
+            'description'   => 'string|min:2',
+            'state'         => 'string',
+        ];
+        $this->validate($request,$rules);
+        if($request->has('name')){
+            $area->name=$request->name;
+        }
+        if($request->has('state')){
+            $area->state=$request->state;
+        }
+        if($request->has('description')){
+            $area->description=$request->description;
+        }
+        if(!$area->isDirty()){
+            return $this->errorResponse('Se debe especificar al menos un valor diferente para actualizar',422);
+        }
+        $area->save();
+        return $this->showOne($area);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Area  $area
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Area $area)
     {
-        //
+        $area->delete();
+        return $this->showOne($area);
     }
 }

@@ -11,7 +11,6 @@ class CycleController extends ApiController
 {
     public function __construct()
     {
-        // parent::__construct();
         // token
         $this->middleware('client.credentials')->only(['index']);
         $this->middleware('auth:api')->except(['index']);
@@ -44,7 +43,7 @@ class CycleController extends ApiController
         ];  
         $this->validate($request,$rules);
 
-        
+
 
         if(!$request->has('state')){
             $request->state=Cycle::CYCLE_AVAILABLE;
@@ -53,48 +52,56 @@ class CycleController extends ApiController
         return $this->showOne($cycle);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Cycle  $cycle
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Cycle $cycle)
     {
-        //
+        return $this->showOne($cycle);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Cycle  $cycle
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Cycle $cycle)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cycle  $cycle
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Cycle $cycle)
     {
-        //
+        $rules=[
+            'name'          => 'string|min:2',
+            'quantity'      => 'integer',
+            'description'   => 'string',
+            'duration'      => 'string|min:2',
+            'state'         => 'string',
+            'start_date'    => 'date',
+            'end_date'      => 'date',
+        ];
+        $this->validate($request,$rules);
+        if($request->has('name')){
+            $cycle->name=$request->name;
+        }
+        if($request->has('description')){
+            $cycle->description=$request->description;
+        }
+        if($request->has('quantity')){
+            $cycle->quantity=$request->quantity;
+        }
+        if($request->has('duration')){
+            $cycle->duration=$request->duration;
+        }
+        if($request->has('state')){
+            $cycle->state=$request->state;
+        }
+        if($request->has('start_date')){
+            $cycle->start_date=$request->start_date;
+        }
+        if($request->has('end_date')){
+            $cycle->end_date=$request->end_date;
+        }
+        if(!$cycle->isDirty()){
+            return $this->errorResponse('Se debe especificar al menos un valor diferente para actualizar',422);
+        }
+        $cycle->save();
+        return $this->showOne($cycle);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Cycle  $cycle
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Cycle $cycle)
     {
-        //
+        $cycle->delete();
+        return $cycle;
     }
 }

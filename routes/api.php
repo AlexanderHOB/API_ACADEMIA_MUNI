@@ -23,7 +23,7 @@ Route::post('oauth/token','\Laravel\Passport\Http\Controllers\AccessTokenControl
 /*
 * Areas
 */
-Route::resource('areas','Area\AreaController',['only'=>['index','show','store']]);
+Route::resource('areas','Area\AreaController',['except'=>['create']]);
 Route::resource('areas.careers','Area\AreaCareerController',['only'=>['index']]);
 Route::resource('areas.courses','Area\AreaCourseController',['only'=>['index']]);
 Route::resource('areas.students','Area\AreaStudentController',['only'=>['index']]);
@@ -40,7 +40,7 @@ Route::get('/email','User\UserController@email');
 /**
  * Career
  */
-Route::resource('careers','Career\CareerController',['only'=>['index','show','store']]);
+Route::resource('careers','Career\CareerController',['except'=>['create']]);
 Route::resource('careers.students','Career\CareerStudentController',['only'=>['index']]);
 Route::resource('careers.courses','Career\CareerCourseController',['only'=>['index']]);
 
@@ -55,7 +55,7 @@ Route::resource('courses.students','Course\CourseStudentController',['only'=>['i
 /**
  * Cycles
  */
-Route::resource('cycles','Cycle\CycleController',['only'=>['index','show','store']]);
+Route::resource('cycles','Cycle\CycleController',['except'=>['create']]);
 Route::resource('cycles.students','Cycle\CycleStudentController',['only'=>['index']]);
 Route::resource('cycles.representatives','Cycle\CycleRepresentativeController',['only'=>['index']]);
 
