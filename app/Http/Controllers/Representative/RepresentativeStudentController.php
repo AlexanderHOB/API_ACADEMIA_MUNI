@@ -9,9 +9,8 @@ class RepresentativeStudentController extends ApiController
 {
     public function index(Representative $representative)
     {
+        $this->allowedAdminAction();
         $students = $representative->students;
-        
-        // dd($students);
         return $this->showAll($students);
     }
 }

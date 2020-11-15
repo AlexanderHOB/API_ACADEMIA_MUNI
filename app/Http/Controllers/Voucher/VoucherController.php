@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Voucher;
 
-use App\Http\Controllers\ApiController;
 use App\Models\Voucher;
-use App\Transformers\VoucherTransformer;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
+use App\Transformers\VoucherTransformer;
 
 class VoucherController extends ApiController
 {  
@@ -13,11 +13,14 @@ class VoucherController extends ApiController
     {
         parent::__construct();
         $this->middleware('transform.input:'. VoucherTransformer::class)->only(['store','update']);
+        $this->middleware('can:view,voucher')->only('show');
+        $this->middleware('can:destroy,voucher')->only('destroy');
 
     }
 
     public function index()
     {
+        $this->allowedAdminAction();
         $vouchers = Voucher::get();
         return $this->showAll($vouchers);
     }
@@ -36,11 +39,8 @@ class VoucherController extends ApiController
             'enrollment_id' =>'required|integer',
             'image'         =>'required|image',
         ];
-        // dd($request);
         $this->validate($request,$rules);   
-        // dd($request->all());
         $data = $request->all();
-
         $data['image'] = $request->image->store('','voucher');
         $data['state'] = Voucher::STATE_PENDIENTE;
         $voucher = Voucher::create($data);
@@ -57,27 +57,10 @@ class VoucherController extends ApiController
      */
     public function show(Voucher $voucher)
     {
-        //
+        return $this->showOne($voucher);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Voucher  $voucher
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Voucher $voucher)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Voucher  $voucher
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Voucher $voucher)
     {
         //
@@ -91,6 +74,9 @@ class VoucherController extends ApiController
      */
     public function destroy(Voucher $voucher)
     {
-        //
+        Storage::disk('voucher')->delete($voucher->image);
+    
+        $voucher->delete();
+        return $this->showOne($voucher);
     }
 }

@@ -12,8 +12,8 @@ class CareerController extends ApiController
     public function __construct()
     {
         // token
-        $this->middleware('client.credentials')->only(['index']);
-        $this->middleware('auth:api')->except(['index']);
+        $this->middleware('client.credentials')->only(['index','show']);
+        $this->middleware('auth:api')->except(['index','show']);
         $this->middleware('transform.input:'. CareerTransformer::class)->only(['store','update']);
 
     }
@@ -24,6 +24,7 @@ class CareerController extends ApiController
     }
     public function store(Request $request)
     {
+        $this->allowedAdminAction();
         $rules = [
             'name'          => 'required|string|min:2',
             'area_id'       => 'integer|required',
@@ -45,6 +46,8 @@ class CareerController extends ApiController
 
     public function update(Request $request, Career $career)
     {
+        $this->allowedAdminAction();
+
         $rules=[
             'name'          => 'string|min:2',
             'description'   => 'string|min:2',
@@ -74,6 +77,8 @@ class CareerController extends ApiController
 
     public function destroy(Career $career)
     {
+        $this->allowedAdminAction();
+
         $career->delete();
         return $this->showOne($career);
     }

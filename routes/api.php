@@ -32,7 +32,7 @@ Route::resource('areas.students','Area\AreaStudentController',['only'=>['index']
 /*
 * User
 */
-Route::resource('users','User\UserController',['only'=>['index','show']]);
+Route::resource('users','User\UserController',['except'=>['create']]);
 Route::get('/me','User\UserController@me');
 Route::get('/email','User\UserController@email');
 
@@ -63,7 +63,7 @@ Route::resource('cycles.representatives','Cycle\CycleRepresentativeController',[
 /**
  * Representative
  */
-Route::resource('representatives','Representative\RepresentativeController',['only'=>['index','show','store']]);
+Route::resource('representatives','Representative\RepresentativeController',['except'=>['create']]);
 Route::resource('representatives.students','Representative\RepresentativeStudentController',['only'=>['index']]);
 
 
@@ -71,14 +71,14 @@ Route::resource('representatives.students','Representative\RepresentativeStudent
 /**
  * Resource
  */
-Route::resource('resources','Resource\ResourceController',['only'=>['index','show']]);
+Route::resource('resources','Resource\ResourceController',['except'=>['create']]);
 Route::resource('resources.students','Resource\ResourceStudentController',['only'=>['index']]);
 
 
 /**
  * Student
  */
-Route::resource('students','Student\StudentController',['only'=>['index','store','show']]);
+Route::resource('students','Student\StudentController',['except'=>['create']]);
 Route::resource('students.enrollments','Student\StudentEnrollmentController',['only'=>['index']]);
 Route::resource('students.representatives','Student\StudentRepresentativeController',['only'=>['index']]);
 Route::resource('students.resources','Student\StudentResourceController',['only'=>['index']]);

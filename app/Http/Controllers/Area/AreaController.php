@@ -26,6 +26,7 @@ class AreaController extends ApiController
 
     public function store(Request $request)
     {
+        $this->allowedAdminAction();
         $rules = [
             'name'          => 'required|string|min:2',
             'state'         => 'string',
@@ -46,6 +47,8 @@ class AreaController extends ApiController
 
     public function update(Request $request, Area $area)
     {
+        $this->allowedAdminAction();
+
         $rules=[
             'name'          => 'string|min:2',
             'description'   => 'string|min:2',
@@ -70,6 +73,8 @@ class AreaController extends ApiController
 
     public function destroy(Area $area)
     {
+        $this->allowedAdminAction();
+
         $area->delete();
         return $this->showOne($area);
     }

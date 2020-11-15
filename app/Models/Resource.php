@@ -15,7 +15,7 @@ class Resource extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillables=[
+    protected $fillable=[
         'name',
         'description',
         'type'

@@ -20,6 +20,8 @@ class CreateCoursesTable extends Migration
             $table->string('name',50);
             $table->string('description',120)->nullable();
             $table->string('state',50)->default(Course::COURSE_AVAILABLE);
+            $table->string('image')->nullable();
+            
             $table->softDeletes();
             $table->timestamps();
         });

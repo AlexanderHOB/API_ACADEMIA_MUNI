@@ -7,10 +7,14 @@ use App\Models\Voucher;
 
 class VoucherEnrollmentController extends ApiController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware('can:enrollment,voucher')->only('index');
+    }
     public function index(Voucher $voucher)
     {
-        $enrollment = $voucher->enrollment->cycle;
-        
+        $enrollment = $voucher->enrollment;
         return $this->showOne($enrollment);
     }
 }

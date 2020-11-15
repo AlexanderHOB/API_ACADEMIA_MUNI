@@ -15,6 +15,7 @@ class EnrollmentStudentCycleController extends ApiController
     public function __construct()
     {
         parent::__construct();
+        $this->middleware('can:enrollment,student')->only('store');
         $this->middleware('transform.input:'. EnrollmentTransformer::class)->only(['store']);
 
     }

@@ -9,6 +9,7 @@ class CareerStudentController extends ApiController
 {
     public function index(Career $career)
     {
+        $this->allowedAdminAction();
         $students = $career->enrollments()->with('student')->get()->pluck('student')->unique()->values();
         return $this->showAll($students);
     }

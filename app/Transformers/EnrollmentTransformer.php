@@ -38,6 +38,26 @@ class EnrollmentTransformer extends TransformerAbstract
             'ciclo_id'              =>  (int) $enrollment->cycle_id,
             'carrera_id'            =>  (int) $enrollment->career_id,
             'estado'                 =>  (string) $enrollment->state,
+            'links' =>[
+                [
+                    'rel'   =>  'self',
+                    'href'  =>  route('enrollments.show',$enrollment->id),
+                ],   
+                [
+                    'rel'   =>  'student',
+                    'href'  =>  route('students.show',$enrollment->student_id),
+                ],  
+                [
+                    'rel'   => 'cycle',
+                    'href'  =>  route('cycles.show',$enrollment->cycle_id),
+
+                ],
+                [
+                    'rel'   => 'careers',
+                    'href'  =>  route('careers.show',$enrollment->career_id),
+
+                ]
+            ]
         ];
     }
 

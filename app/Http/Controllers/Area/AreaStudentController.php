@@ -9,6 +9,8 @@ class AreaStudentController extends ApiController
 {
     public function index(Area $area)
     {
+        $this->allowedAdminAction();
+
         $students = $area->careers()->with('enrollments.student')->get()
         ->pluck('enrollments')
         ->collapse()

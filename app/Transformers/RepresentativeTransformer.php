@@ -37,6 +37,17 @@ class RepresentativeTransformer extends TransformerAbstract
             'nombre'            =>  (string) $representative->name,
             'apellidos'         =>  (string) $representative->lastname,
             'dni'               =>  (string) $representative->dni,
+            'links' =>  [
+                [
+                    'self'  =>  'self',
+                    'href'  =>  route('representatives.show',$representative->id),
+                ],
+                [
+                    'self'  =>  'representative.students',
+                    'href'  =>  route('representatives.students.index',$representative->id),
+                ],
+                
+            ],
         ];
     }
     public static function originalAttribute($index)

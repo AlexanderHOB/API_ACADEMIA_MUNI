@@ -7,6 +7,13 @@ use App\Models\Student;
 
 class StudentRepresentativeController extends ApiController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware('transform.input:'. StudentTransformer::class)->only(['index']);
+        $this->middleware('can:view,student')->only('index');
+
+    }
     public function index(Student $student)
     {
         $representative = $student->representative;

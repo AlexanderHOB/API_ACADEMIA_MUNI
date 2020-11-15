@@ -2,10 +2,21 @@
 
 namespace App\Http\Controllers\Student;
 
-use App\Http\Controllers\ApiController;
 use App\Models\Student;
+use App\Http\Controllers\ApiController;
+use App\Transformers\ResourceTransformer;
+
 class StudentResourceController extends ApiController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        // token
+        $this->middleware('transform.input:'. ResourceTransformer::class)->only(['index']);
+
+        $this->middleware('can:view,student')->only('index');
+
+    }
     public function index(Student $student)
     {
         $resources = $student->has('resources')
@@ -16,8 +27,6 @@ class StudentResourceController extends ApiController
         ->unique('id')
         ->values()
         ;
-        // return $resources;
-        // dd($students);
         return $this->showAll($resources);
     }
 }

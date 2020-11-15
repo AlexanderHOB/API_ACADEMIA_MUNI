@@ -32,6 +32,8 @@ class CycleController extends ApiController
      */
     public function store(Request $request)
     {
+        $this->allowedAdminAction();
+
         $rules = [
             'name'          => 'required|string|min:2',
             'quantity'      => 'integer| required',
@@ -60,6 +62,8 @@ class CycleController extends ApiController
 
     public function update(Request $request, Cycle $cycle)
     {
+        $this->allowedAdminAction();
+
         $rules=[
             'name'          => 'string|min:2',
             'quantity'      => 'integer',
@@ -101,6 +105,8 @@ class CycleController extends ApiController
 
     public function destroy(Cycle $cycle)
     {
+        $this->allowedAdminAction();
+
         $cycle->delete();
         return $cycle;
     }

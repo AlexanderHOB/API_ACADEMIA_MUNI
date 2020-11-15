@@ -39,6 +39,16 @@ class VoucherTransformer extends TransformerAbstract
             'fecha'             =>  (string) $voucher->date,
             'estado'            =>  (string) $voucher->state,
             'matricula_id'      =>   (int) $voucher->enrollment_id,
+            'links' =>[
+                [
+                    'rel'   =>  'self',
+                    'href'  =>  route('vouchers.show',$voucher->id),
+                ],   
+                [
+                    'rel'   =>  'voucher.enrollments',
+                    'href'  =>  route('vouchers.enrollments.index',$voucher->id),
+                ],  
+            ]
         ];
     }
     public static function originalAttribute($index)

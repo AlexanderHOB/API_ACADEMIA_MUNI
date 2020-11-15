@@ -7,6 +7,12 @@ use App\Models\Area;
 
 class AreaCourseController extends ApiController
 {
+    public function __construct()
+    {
+
+        $this->middleware('client.credentials')->only(['index']);
+
+    }
     public function index(Area $area)
     {
         $courses = $area->courses;

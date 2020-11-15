@@ -7,20 +7,23 @@ use App\Models\Student;
 
 class StudentVoucherController extends ApiController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware('transform.input:'. StudentTransformer::class)->only(['index']);
+        $this->middleware('can:view,student')->only('index');
+
+    }
     public function index(Student $student)
     {
-        $vouchers = $student->has('enrollments.vouchers')
-        ->with('enrollments.vouchers')
+        $vouchers = $student
+        ->enrollments()->with('vouchers')
         ->get()
-        ->pluck('enrollments')
-        ->collapse()
         ->pluck('vouchers')
         ->collapse()
         ->unique('id')
         ->values()
         ;
-        // return $vouchers;
-        // dd($students);
         return $this->showAll($vouchers);
     }
 }

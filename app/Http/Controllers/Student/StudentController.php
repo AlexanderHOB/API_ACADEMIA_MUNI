@@ -18,6 +18,8 @@ class StudentController extends ApiController
         $this->middleware('client.credentials')->only(['index','store']);
         $this->middleware('auth:api')->except(['index','store']);
         $this->middleware('transform.input:'. StudentTransformer::class)->only(['store','update']);
+        $this->middleware('can:view,student')->only('show');
+        $this->middleware('can:update,student')->only('update');
 
     }
     public function index()
@@ -96,17 +98,6 @@ class StudentController extends ApiController
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Student  $student
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Student $student)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -115,7 +106,51 @@ class StudentController extends ApiController
      */
     public function update(Request $request, Student $student)
     {
-        //
+        $rules=[
+            'name'              =>'string|min:2|regex:/^[\pL\s\-]+$/u',
+            'lastname'          =>'string|min:2|regex:/^[\pL\s\-]+$/u',
+            'dni'               =>'numeric|digits:8|unique:students,dni,'.$student->id,
+            'birthday'          =>'date',
+            'phone'             =>'numeric|digits:9',
+            'province'          =>'string|regex:/^[\pL\s\-]+$/u',
+            'district'          =>'string|regex:/^[\pL\s\-]+$/u',
+            'year_culmination'  =>'numeric|digits:4',
+            'representative_id' =>'integer'
+        ];
+        
+        $this->validate($request,$rules);
+        if($request->has('name')){
+            $student->name=$request->name;
+        }
+        if($request->has('lastname')){
+            $student->lastname=$request->lastname;
+        }
+        if($request->has('dni')){
+            $student->dni=$request->dni;
+        }
+        if($request->has('birthday')){
+            $student->birthday=$request->birthday;
+        }
+        if($request->has('phone')){
+            $student->phone=$request->phone;
+        }
+        if($request->has('province')){
+            $student->province=$request->province;
+        }
+        if($request->has('district')){
+            $student->district=$request->district;
+        }
+        if($request->has('year_culmination')){
+            $student->year_culmination=$request->year_culmination;
+        }
+        if($request->has('representative_id')){
+            $student->representative_id=$request->representative_id;
+        }
+        if(!$student->isDirty()){
+            return $this->errorResponse('Se debe especificar al menos un valor diferente para actualizar',422);
+        }
+        $student->save();
+        return $this->showOne($student);
     }
 
     /**

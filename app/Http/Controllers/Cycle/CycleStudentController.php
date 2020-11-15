@@ -9,6 +9,8 @@ class CycleStudentController extends ApiController
 {
     public function index(Cycle $cycle)
     {
+        $this->allowedAdminAction();
+
         $students = $cycle->enrollments()
         ->with('student')
         ->get()

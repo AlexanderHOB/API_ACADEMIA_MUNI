@@ -16,8 +16,9 @@ class RepresentativeController extends ApiController
 
         $this->middleware('client.credentials')->only(['index','store']);
 
-        $this->middleware('transform.input:'. RepresentativeTransformer::class)->only(['store']);
+        $this->middleware('transform.input:'. RepresentativeTransformer::class)->only(['store','update']);
 
+        $this->middleware('can:update,representative')->only('update');
     }
     /**
      * Display a listing of the resource.
@@ -54,23 +55,30 @@ class RepresentativeController extends ApiController
         return $this->showOne($representative);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Representative  $representative
-     * @return \Illuminate\Http\Response
-     */
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Representative  $representative
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Representative $representative)
     {
-        //
+        $rules = [
+            'name'          =>'string|min:2|regex:/^[\pL\s\-]+$/u',
+            'lastname'      =>'string|min:2|regex:/^[\pL\s\-]+$/u',
+            'dni'           =>'numeric|digits:8|unique:representatives,dni'.$representative->id,
+
+        ];
+        $this->validate($request, $rules);
+
+        if($request->has('name')){
+            $representative->name=$request->name;
+        }
+        if($request->has('lastname')){
+            $representative->lastname=$request->lastname;
+        }
+        if($request->has('dni')){
+            $representative->dni=$request->dni;
+        }
+        if(!$representative->isDirty()){
+            return $this->errorResponse('Se debe especificar al menos un valor diferente para actualizar',422);
+        }
+        $representative->save();
+        return $this->showOne($representative);
     }
 
     /**

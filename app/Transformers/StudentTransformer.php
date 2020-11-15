@@ -43,7 +43,30 @@ class StudentTransformer extends TransformerAbstract
             'distrito'          => (string) $student->district,
             'relacion'          => (string) $student->relationship,
             'anio_culminacion'  => (int)    $student->year_culmination,
-            'apoderado_id'      => (int)    $student->representative_id
+            'apoderado_id'      => (int)    $student->representative_id,
+            'links' =>  [
+                [
+                    'self'  =>  'self',
+                    'href'  =>  route('students.show',$student->id),
+                ],
+                [
+                    'self'  =>  'student.resources',
+                    'href'  =>  route('students.resources.index',$student->id),
+                ],
+                [
+                    'self'  =>  'student.enrollments',
+                    'href'  =>  route('students.enrollments.index',$student->id),
+                ],
+                [
+                    'self'  =>  'student.vouchers',
+                    'href'  =>  route('students.vouchers.index',$student->id),
+                ],
+                [
+                    'self'  =>  'student.representatives',
+                    'href'  =>  route('students.representatives.index',$student->id),
+                ],
+                
+            ],
         ];
     }
     public static function originalAttribute($index)
@@ -58,14 +81,14 @@ class StudentTransformer extends TransformerAbstract
             'distrito'              => 'district',
             'provincia'             => 'province',
             'apoderado_id'          => 'representative_id',
-            'fechaCreacion'         => 'created_at',
-            'fechaActualizacion'    => 'updated_at',
-            'fechaEliminacion'      => 'deleted_at',
             'password'              => 'password',
             'password_confirmation' => 'password_confirmation',
             'correo'                => 'email',
             'relacion'              => 'relationship',
-            'anio_culminacion'      => 'year_culmination'
+            'anio_culminacion'      => 'year_culmination',
+            'fechaCreacion'         => 'created_at',
+            'fechaActualizacion'    => 'updated_at',
+            'fechaEliminacion'      => 'deleted_at',
 
         ];
         return isset($attributes[$index]) ? $attributes[$index] : null;
@@ -86,10 +109,10 @@ class StudentTransformer extends TransformerAbstract
             'province'          => 'provincia',
             'representative_id' => 'apoderado_id',
             'relationship'          => 'relacion',
+            'year_culmination'=>'anio_culminacion',
             'created_at'    => 'fechaCreacion',
             'updated_at'    => 'fechaActualizacion',
             'deleted_at'    => 'fechaEliminacion',
-            'year_culmination'=>'anio_culminacion'
             
         ];
         return isset($attributes[$index]) ? $attributes[$index] : null;

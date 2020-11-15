@@ -41,6 +41,21 @@ class CycleTransformer extends TransformerAbstract
             'duracion'          => (string) $cycle->duration,
             'inicio'            => (string) $cycle->start_date,
             'fin'               => (string) $cycle->end_date,
+            'links' =>[
+                [
+                    'rel'   =>  'self',
+                    'href'  =>  route('cycles.show',$cycle->id),
+                ],   
+                [
+                    'rel'   =>  'cycle.students',
+                    'href'  =>  route('cycles.students.index',$cycle->id),
+                ],  
+                [
+                    'rel'   => 'cycle.representatives',
+                    'href'  =>  route('cycles.representatives.index',$cycle->id),
+
+                ],
+            ]
         ];
     }
     public static function originalAttribute($index)

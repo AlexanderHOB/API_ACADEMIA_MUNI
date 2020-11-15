@@ -8,7 +8,15 @@ use Illuminate\Http\Request;
 
 class CourseController extends ApiController
 {
-    
+    public function __construct()
+    {
+        // token
+        $this->middleware('client.credentials')->only(['index']);
+        $this->middleware('auth:api')->except(['index']);
+        $this->middleware('transform.input:'. CycleTransformer::class)->only(['store','update']);
+
+
+    }
     public function index()
     {
         $courses = Course::get();
@@ -23,7 +31,26 @@ class CourseController extends ApiController
      */
     public function store(Request $request)
     {
-        //
+        $this->allowedAdminAction();
+
+        $rules = [
+            'name'          => 'required|string|min:2',
+            'quantity'      => 'integer| required',
+            'duration'      => 'required|string|min:2',
+            'state'         => 'string',
+            'start_date'    => 'date',
+            'end_date'      => 'date',
+
+        ];  
+        $this->validate($request,$rules);
+
+
+
+        if(!$request->has('state')){
+            $request->state=Cycle::CYCLE_AVAILABLE;
+        }
+        $cycle = Cycle::create($request->all());
+        return $this->showOne($cycle);
     }
 
     /**

@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Student;
+use App\Policies\UserPolicy;
 use Laravel\Passport\Passport;
+use App\Policies\StudentPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -15,7 +19,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Models\Model' => 'App\Policies\ModelPolicy',
+        Student::class => StudentPolicy::class,
+        User::class => UserPolicy::class
     ];
 
     /**
@@ -26,8 +31,15 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+        Gate::define('admin-action',function($user){
+            return $user->isAdmin();
+        });
+        Gate::define('update-admin',function($user,$authenticateUser){
+            return $user->isAdmin();
+        });
         Passport::routes(null, ['prefix' => 'api/oauth']);
-        Passport::tokensExpireIn(Carbon::now()->addMinutes(60));
-        Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));
+        Passport::tokensExpireIn(Carbon::now()->addMinutes(120));
+        Passport::refreshTokensExpireIn(Carbon::now()->addMinutes(180));
     }
 }
