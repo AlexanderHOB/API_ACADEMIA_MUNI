@@ -84,7 +84,7 @@ Route::resource('students.representatives','Student\StudentRepresentativeControl
 Route::resource('students.resources','Student\StudentResourceController',['only'=>['index']]);
 Route::resource('students.vouchers','Student\StudentVoucherController',['only'=>['index']]);
 
-Route::resource('students.cycles.enrollments','Enrollment\EnrollmentStudentCycleController',['only'=>['store']]);
+Route::resource('students.cycles.enrollments','Enrollment\EnrollmentStudentCycleController',['only'=>['store','update']]);
 
 
 /**

@@ -15,8 +15,8 @@ class EnrollmentStudentCycleController extends ApiController
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('can:enrollment,student')->only('store');
-        $this->middleware('transform.input:'. EnrollmentTransformer::class)->only(['store']);
+        $this->middleware('can:enrollment,student')->only(['store','update']);
+        $this->middleware('transform.input:'. EnrollmentTransformer::class)->only(['store','update']);
 
     }
 
@@ -31,6 +31,27 @@ class EnrollmentStudentCycleController extends ApiController
         $data['cycle_id']   = $cycle->id;
         $data['state']      = Enrollment::STATE_PENDING;
         $enrollment         = Enrollment::create($data);
+        return $this->showOne($enrollment);
+        
+    }
+
+    public function update(Request $request,Student $student, Cycle $cycle,Enrollment $enrollment)
+    {
+        $rules = [
+            'career_id'     => 'integer',
+            'state'         => 'in:'.Enrollment::STATE_PENDING.','.Enrollment::STATE_PROGRESS.',',Enrollment::STATE_TIMEOUT,
+        ];
+        $this->validate($request,$rules);
+        if($request->has('career_id')){
+            $enrollment->career_id=$request->career_id;
+        }
+        if($request->has('state')){
+            $enrollment->state=$request->state;
+        }
+        if(!$enrollment->isDirty()){
+            return $this->errorResponse('Se debe especificar al menos un valor diferente para actualizar',422);
+        }
+        $enrollment->save();
         return $this->showOne($enrollment);
         
     }
