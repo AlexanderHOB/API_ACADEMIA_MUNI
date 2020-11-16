@@ -33,28 +33,28 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        User::created(function($user){
-            retry(5, function() use ($user){
-                Mail::to($user)->send(new UserCreated($user));
-            },100);
-        });
+        // User::created(function($user){
+        //     retry(5, function() use ($user){
+        //         Mail::to($user)->send(new UserCreated($user));
+        //     },100);
+        // });
 
-        User::updated(function($user){
-            if ($user->isDirty('email')){
-                retry(5,function() use($user){
-                    Mail::to($user)->send(new UserMailChanged($user));
-                },100);
-            }
-        });
+        // User::updated(function($user){
+        //     if ($user->isDirty('email')){
+        //         retry(5,function() use($user){
+        //             Mail::to($user)->send(new UserMailChanged($user));
+        //         },100);
+        //     }
+        // });
 
-        Enrollment::updated(function($enrollment){
-            if ($enrollment->isDirty('state') && $enrollment->state === Enrollment::STATE_PROGRESS){
-                $user = User::findOrFail($enrollment->student_id);
-                $student = Student::findOrFail($enrollment->student_id);
-                retry(5,function() use($user,$student){
-                    Mail::to($user)->send(new VoucherMailChanged($user,$student));
-                },100);
-            }
-        });
+        // Enrollment::updated(function($enrollment){
+        //     if ($enrollment->isDirty('state') && $enrollment->state === Enrollment::STATE_PROGRESS){
+        //         $user = User::findOrFail($enrollment->student_id);
+        //         $student = Student::findOrFail($enrollment->student_id);
+        //         retry(5,function() use($user,$student){
+        //             Mail::to($user)->send(new VoucherMailChanged($user,$student));
+        //         },100);
+        //     }
+        // });
     }
 }
