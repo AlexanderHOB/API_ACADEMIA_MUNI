@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ApiController;
 use App\Transformers\StudentTransformer;
+use App\Http\Controllers\User\UserController;
 
 class StudentController extends ApiController
 {
@@ -53,16 +54,10 @@ class StudentController extends ApiController
 
         $this->validate($request,$rules);
         try{
-            $campos = $request->all();
-            $campos['password'] = bcrypt($request->password);
-            $campos['verified'] = User::USUARIO_NO_VERIFICADO;
-            $campos['verification_token'] = User::generarVerificacionToken();
-            $campos['admin']    = User::USUARIO_REGULAR;
-            $campos['role_id']  = '3';
-
+            
             DB::beginTransaction();
-            $usuario = User::create($campos);
-
+            $usuario = app(UserController::class)->store($request);
+            // dd($usuario->id);
             $student = new Student();
             $student->id        =$usuario->id;
             $student->name      =$request->name;

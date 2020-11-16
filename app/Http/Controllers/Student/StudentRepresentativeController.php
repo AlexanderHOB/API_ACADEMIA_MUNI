@@ -10,7 +10,6 @@ class StudentRepresentativeController extends ApiController
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('transform.input:'. StudentTransformer::class)->only(['index']);
         $this->middleware('can:view,student')->only('index');
 
     }

@@ -12,7 +12,6 @@ class StudentResourceController extends ApiController
     {
         parent::__construct();
         // token
-        $this->middleware('transform.input:'. ResourceTransformer::class)->only(['index']);
 
         $this->middleware('can:view,student')->only('index');
 

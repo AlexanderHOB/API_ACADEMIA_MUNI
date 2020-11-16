@@ -49,7 +49,15 @@ class UserController extends ApiController
     }
     public function store(Request $request)
     {
-        
+        $campos = $request->all();
+        $campos['password'] = bcrypt($request->password);
+        $campos['verified'] = User::USUARIO_NO_VERIFICADO;
+        $campos['verification_token'] = User::generarVerificacionToken();
+        $campos['admin']    = User::USUARIO_REGULAR;
+        $campos['role_id']  = '3';
+        $usuario = User::create($campos);
+
+        return $usuario;
     }
     public function update(Request $request, User $user)
     {
@@ -102,7 +110,7 @@ class UserController extends ApiController
     {
         $user = User::where('verification_token',$token)->firstOrFail();
 
-        $user->verified = User::USER_VERIFIED;
+        $user->verified = User::USUARIO_VERIFICADO;
 
         $user->verification_token = null;
 

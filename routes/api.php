@@ -98,3 +98,9 @@ Route::resource('vouchers.enrollments','Voucher\VoucherEnrollmentController',['o
  */
 Route::resource('enrollments','Enrollment\EnrollmentController',['only'=>['index','show']]);
 
+
+Route::name('verify')->get('users/verify/{token}','User\UserController@verify');
+Route::name('resend')->get('users/{user}/resend','User\UserController@resend');
+
+
+Route::post('oauth/token','\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken');
