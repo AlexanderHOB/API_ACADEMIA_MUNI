@@ -1,0 +1,4 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/nibbhvsh/test.teampixeland.com/
+    - /bin/cp -R * $DEPLOYPATH
