@@ -47,7 +47,13 @@ class UserController extends ApiController
     }
     public function me()
     {
-        return response()->json(request()->user());
+        $user['id'] = request()->user()->id;
+        $user['nombre'] = request()->user()->name;
+        $user['admin'] = request()->user()->admin;
+        $user['correo'] = request()->user()->email;
+        $user['rol_id'] = request()->user()->role_id;
+
+        return response()->json($user);
     }
     public function store(Request $request)
     {
