@@ -39,7 +39,7 @@ class EnrollmentStudentCycleController extends ApiController
     {
         $rules = [
             'career_id'     => 'integer',
-            'state'         => 'in:'.Enrollment::STATE_PENDING.','.Enrollment::STATE_PROGRESS.',',Enrollment::STATE_TIMEOUT,
+            'state'         => 'in:'.Enrollment::STATE_PENDING.','.Enrollment::STATE_PROGRESS.','.Enrollment::STATE_TIMEOUT.','.Enrollment::STATE_DISAPPROVED,
         ];
         $this->validate($request,$rules);
         if($request->has('career_id')){

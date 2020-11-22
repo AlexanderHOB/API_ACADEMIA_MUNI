@@ -11,8 +11,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Voucher extends Model
 {
     use HasFactory, SoftDeletes;
-    const STATE_PENDIENTE='pending';
-    const STATE_ACTIVADO='active';
+    const STATE_PENDIENTE='pendiente';
+    const STATE_ACTIVADO='activo';
+    const STATE_DISAPPROVED='desaprobado';
+    const STATE_TIMEOUT = 'terminado';
     public $transformer = VoucherTransformer::class;
     
     protected $dates = ['deleted_at'];

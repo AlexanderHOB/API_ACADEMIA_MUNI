@@ -12,7 +12,8 @@ class Enrollment extends Model
 {
     use HasFactory, SoftDeletes;
     const STATE_PENDING='pendiente';
-    const STATE_PROGRESS='aprovado';
+    const STATE_PROGRESS='aprobado';
+    const STATE_DISAPPROVED = 'desaprobado';
     const STATE_TIMEOUT='terminado';
 
     public $transformer = EnrollmentTransformer::class;
