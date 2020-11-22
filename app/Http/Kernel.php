@@ -41,7 +41,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             // 'transform.input',
-            'throttle:api',
+            'throttle:300:1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
