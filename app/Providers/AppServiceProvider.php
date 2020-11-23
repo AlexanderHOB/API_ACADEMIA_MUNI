@@ -8,6 +8,7 @@ use App\Mail\UserCreated;
 use App\Models\Enrollment;
 use App\Mail\UserMailChanged;
 use App\Mail\VoucherMailChanged;
+use App\Mail\VoucherMailDisapproved;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -48,12 +49,19 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Enrollment::updated(function($enrollment){
-            if ($enrollment->isDirty('state') && $enrollment->state === Enrollment::STATE_PROGRESS){
+            if ($enrollment->isDirty('state')){
                 $user = User::findOrFail($enrollment->student_id);
                 $student = Student::findOrFail($enrollment->student_id);
-                retry(5,function() use($user,$student){
-                    Mail::to($user)->send(new VoucherMailChanged($user,$student));
-                },100);
+                if($enrollment->state === Enrollment::STATE_PROGRESS){
+                    retry(5,function() use($user,$student){
+                        Mail::to($user)->send(new VoucherMailChanged($user,$student));
+                    },100);
+                }else if($enrollment->state === Enrollment::STATE_DISAPPROVED){
+                    retry(5,function() use($user,$student){
+                        Mail::to($user)->send(new VoucherMailDisapproved($user,$student));
+                    },100);
+                } else{}
+                
             }
         });
     }
