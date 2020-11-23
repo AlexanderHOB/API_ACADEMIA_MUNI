@@ -1,7 +1,6 @@
 
 @component('mail::message')
 # Hola {{$user->name}}
-Tu matrícula ha sido procesada con éxito.
 
 ## Su matrícula realizada no cumple con los requisitos necesarios,
 ## Por favor, Vuelva a matricularse y cumpla con los requisitos correctamente.
