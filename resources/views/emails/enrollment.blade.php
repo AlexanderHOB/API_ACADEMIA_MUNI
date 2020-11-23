@@ -8,7 +8,7 @@ Tu matrícula ha sido procesada con éxito.
 ## <b>Usuario: {{$student->dni}}</b>
 ## <b>Contraseña: {{$student->phone}}</b>
 
-{{ HTML::image('assets/images/vouchers/1.jpg', 'alt text', array('class' => 'css-class')) }}
+{{-- {{ HTML::image('assets/images/vouchers/1.jpg', 'alt text', array('class' => 'css-class')) }} --}}
 
 @component('mail::button', ['url' => 'https://aula-virtual.academia-el-tambo.teampixeland.com/'])
 Aula Virtual 
