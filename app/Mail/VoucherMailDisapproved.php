@@ -32,7 +32,7 @@ class VoucherMailDisapproved extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.enrollment')->subject("Matrícula Aprobada - Academia Municipal El Tambo");
+        return $this->markdown('emails.disapproved')->subject("Matrícula No Aprobada - Academia Municipal El Tambo");
 
     }
 }
