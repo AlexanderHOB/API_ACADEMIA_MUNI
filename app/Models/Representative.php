@@ -24,4 +24,20 @@ class Representative extends Model
     public function students(){
         return $this->hasMany(Student::class);
     }
+
+    //Mutadores - Accesores
+    public function setNameAttribute($valor){
+        $this->attributes['name'] = strtolower($valor);
+    }
+    public function getNameAttribute($valor){
+        return \ucwords($valor);
+    }
+    public function setLastnameAttribute($valor)
+    {
+        $this->attributes['lastname']   = strtolower($valor);
+    }
+    public function getLastnameAttribute($valor)
+    {
+        return ucwords($valor);
+    }
 }
