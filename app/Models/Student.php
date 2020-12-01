@@ -22,7 +22,7 @@ class Student extends Model
         'dni',
         'birthday',
         'phone',
-        'departament',
+        'department',
         'province',
         'district',
         'address',

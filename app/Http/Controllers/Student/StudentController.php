@@ -46,7 +46,7 @@ class StudentController extends ApiController
             'dni'           =>'required|numeric|unique:students|digits:8',
             'birthday'      =>'required|date',
             'phone'         =>'required|numeric|digits:9',
-            'departament'   =>'required|string|regex:/^[\pL\s\-]+$/u',
+            'department'   =>'required|string|regex:/^[\pL\s\-]+$/u',
             'province'      =>'required|string|regex:/^[\pL\s\-]+$/u',
             'district'      =>'required|string|regex:/^[\pL\s\-]+$/u',
             'address'       =>'required|string',
