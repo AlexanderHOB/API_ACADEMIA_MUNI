@@ -37,6 +37,7 @@ class RepresentativeTransformer extends TransformerAbstract
             'nombre'            =>  (string) $representative->name,
             'apellidos'         =>  (string) $representative->lastname,
             'dni'               =>  (string) $representative->dni,
+            'celular'           =>  (string) $representative->phone,
             'links' =>  [
                 [
                     'self'  =>  'self',
@@ -57,6 +58,7 @@ class RepresentativeTransformer extends TransformerAbstract
             'nombre'                => 'name',
             'apellidos'             => 'lastname',
             'dni'                   => 'dni',
+            'celular'               => 'phone',
             'fechaCreacion'         => 'created_at',
             'fechaActualizacion'    => 'updated_at',
             'fechaEliminacion'      => 'deleted_at',
@@ -70,6 +72,7 @@ class RepresentativeTransformer extends TransformerAbstract
             'name'                  => 'nombre',
             'lastname'              => 'apellidos',
             'dni'                   => 'dni',
+            'phone'                 => 'celular',
             'created_at'            => 'fechaCreacion',
             'updated_at'            => 'fechaActualizacion',
             'deleted_at'            => 'fechaEliminacion',

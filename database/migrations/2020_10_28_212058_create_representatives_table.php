@@ -14,6 +14,7 @@ class CreateRepresentativesTable extends Migration
             $table->string('name',80);
             $table->string('lastname',120);
             $table->string('dni',8);
+            $table->string('phone',9)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

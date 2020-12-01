@@ -19,6 +19,8 @@ class Representative extends Model
         'name',
         'lastname',
         'dni',
+        'phone'
+        
     ];
     
     public function students(){

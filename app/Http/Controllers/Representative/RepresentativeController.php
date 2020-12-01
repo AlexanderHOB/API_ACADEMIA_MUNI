@@ -37,6 +37,8 @@ class RepresentativeController extends ApiController
             'name'          =>'required|string|min:2|regex:/^[\pL\s\-]+$/u',
             'lastname'      =>'required|string|min:2|regex:/^[\pL\s\-]+$/u',
             'dni'           =>'required|numeric|unique:representatives|digits:8',
+            'phone'         =>'required|numeric|unique:representatives|digits:9',
+
         ];
         $this->validate($request, $rules);
 
@@ -73,6 +75,9 @@ class RepresentativeController extends ApiController
         }
         if($request->has('dni')){
             $representative->dni=$request->dni;
+        }
+        if($request->has('phone')){
+            $representative->phone=$request->phone;
         }
         if(!$representative->isDirty()){
             return $this->errorResponse('Se debe especificar al menos un valor diferente para actualizar',422);
