@@ -46,8 +46,10 @@ class StudentController extends ApiController
             'dni'           =>'required|numeric|unique:students|digits:8',
             'birthday'      =>'required|date',
             'phone'         =>'required|numeric|digits:9',
+            'departament'   =>'required|string|regex:/^[\pL\s\-]+$/u',
             'province'      =>'required|string|regex:/^[\pL\s\-]+$/u',
             'district'      =>'required|string|regex:/^[\pL\s\-]+$/u',
+            'address'       =>'required|string',
             'year_culmination'=>'required|numeric|digits:4',
             'representative_id'=>'required|integer'
         ];
@@ -59,16 +61,18 @@ class StudentController extends ApiController
             $usuario = app(UserController::class)->store($request);
             // dd($usuario->id);
             $student = new Student();
-            $student->id        =$usuario->id;
-            $student->name      =$request->name;
-            $student->lastname  =$request->lastname;
-            $student->dni       =$request->dni;
-            $student->birthday  =$request->birthday;
-            $student->phone     =$request->phone;
-            $student->province  =$request->province;
-            $student->district  =$request->district;
-            $student->relationship = $request->relationship;
-            $student->year_culmination = $request->year_culmination;
+            $student->id            =$usuario->id;
+            $student->name          =$request->name;
+            $student->lastname      =$request->lastname;
+            $student->dni           =$request->dni;
+            $student->birthday      =$request->birthday;
+            $student->phone         =$request->phone;
+            $student->department    =$request->department;
+            $student->province      =$request->province;
+            $student->district      =$request->district;
+            $student->address       =$request->address;
+            $student->relationship  = $request->relationship;
+            $student->year_culmination  = $request->year_culmination;
             $student->representative_id =$request->representative_id;
             $student->save();
             
@@ -107,8 +111,10 @@ class StudentController extends ApiController
             'dni'               =>'numeric|digits:8|unique:students,dni,'.$student->id,
             'birthday'          =>'date',
             'phone'             =>'numeric|digits:9',
+            'department'        =>'string|regex:/^[\pL\s\-]+$/u',
             'province'          =>'string|regex:/^[\pL\s\-]+$/u',
             'district'          =>'string|regex:/^[\pL\s\-]+$/u',
+            'address'           =>'string',
             'year_culmination'  =>'numeric|digits:4',
             'representative_id' =>'integer'
         ];
@@ -129,11 +135,17 @@ class StudentController extends ApiController
         if($request->has('phone')){
             $student->phone=$request->phone;
         }
+        if($request->has('department')){
+            $student->department=$request->department;
+        }
         if($request->has('province')){
             $student->province=$request->province;
         }
         if($request->has('district')){
             $student->district=$request->district;
+        }
+        if($request->has('address')){
+            $student->address=$request->address;
         }
         if($request->has('year_culmination')){
             $student->year_culmination=$request->year_culmination;

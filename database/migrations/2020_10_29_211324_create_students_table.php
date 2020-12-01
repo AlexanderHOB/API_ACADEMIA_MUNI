@@ -21,8 +21,10 @@ class CreateStudentsTable extends Migration
             $table->date('birthday')->nullable();
             $table->smallInteger('year_culmination')->nullable();
             $table->string('phone',9);
+            $table->string('departament',80);
             $table->string('province',80);
-            $table->string('district',80);
+            $table->string('district',80);  
+            $table->string('address',200);
             $table->string('relationship',80)->nullable();
             $table->integer('representative_id')->unsigned();
             $table->foreign('representative_id')->references('id')->on('representatives');

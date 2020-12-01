@@ -22,8 +22,10 @@ class Student extends Model
         'dni',
         'birthday',
         'phone',
+        'departament',
         'province',
         'district',
+        'address',
         'relationship',
         'year_culmination',
         'representative_id',
@@ -40,5 +42,28 @@ class Student extends Model
     }
     public function user(){
         return $this->belongsTo(User::class);
+    }
+     //Mutadores - Accesores
+     public function setNameAttribute($valor){
+        $this->attributes['name'] = strtolower($valor);
+    }
+    public function getNameAttribute($valor){
+        return \ucwords($valor);
+    }
+    public function setLastnameAttribute($valor)
+    {
+        $this->attributes['lastname']   = strtolower($valor);
+    }
+    public function getLastnameAttribute($valor)
+    {
+        return ucwords($valor);
+    }
+    public function setAddressAttribute($valor)
+    {
+        $this->attributes['address']   = strtolower($valor);
+    }
+    public function getAddressAttribute($valor)
+    {
+        return ucwords($valor);
     }
 }
