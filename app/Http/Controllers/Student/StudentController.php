@@ -59,7 +59,6 @@ class StudentController extends ApiController
             
             DB::beginTransaction();
             $usuario = app(UserController::class)->store($request);
-            // dd($usuario->id);
             $student = new Student();
             $student->id            =$usuario->id;
             $student->name          =$request->name;

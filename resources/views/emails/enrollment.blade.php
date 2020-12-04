@@ -4,7 +4,7 @@
 ## Tu matrícula ha sido procesada con éxito.
 ## Sus credenciales para el aula virtual son los siguientes: 
 ## <b>Usuario: {{$student->dni}}</b>
-## <b>Contraseña: {{$student->phone}}</b>
+## <b>Contraseña: La misma de la plataforma</b>
 
 {{-- {{ HTML::image('assets/images/vouchers/1.jpg', 'alt text', array('class' => 'css-class')) }} --}}
 

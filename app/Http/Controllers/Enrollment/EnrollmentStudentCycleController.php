@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ApiController;
 use App\Transformers\EnrollmentTransformer;
+use App\Http\Controllers\Moodle\UserController;
 
 class EnrollmentStudentCycleController extends ApiController
 { 
@@ -37,6 +38,7 @@ class EnrollmentStudentCycleController extends ApiController
 
     public function update(Request $request,Student $student, Cycle $cycle,Enrollment $enrollment)
     {
+        
         $rules = [
             'career_id'     => 'integer',
             'state'         => 'in:'.Enrollment::STATE_PENDING.','.Enrollment::STATE_PROGRESS.','.Enrollment::STATE_TIMEOUT.','.Enrollment::STATE_DISAPPROVED,
@@ -47,6 +49,9 @@ class EnrollmentStudentCycleController extends ApiController
         }
         if($request->has('state')){
             $enrollment->state=$request->state;
+            if($request->state === Enrollment::STATE_PROGRESS){
+                app(UserController::class)->store($student);
+            }
         }
         if(!$enrollment->isDirty()){
             return $this->errorResponse('Se debe especificar al menos un valor diferente para actualizar',422);

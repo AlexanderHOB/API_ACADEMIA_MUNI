@@ -23,6 +23,7 @@ class CreateCyclesTable extends Migration
             $table->string('state',50)->default(Cycle::CYCLE_AVAILABLE);
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
+            $table->integer('category_moodle_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

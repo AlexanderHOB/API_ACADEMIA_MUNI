@@ -27,7 +27,8 @@ class Cycle extends Model
         'duration',
         'state',
         'start_date',
-        'end_date'
+        'end_date',
+        'category_moodle_id'
     ];
     
     public function areas(){

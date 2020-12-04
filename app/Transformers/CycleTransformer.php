@@ -38,9 +38,10 @@ class CycleTransformer extends TransformerAbstract
             'descripcion'       =>  (string) $cycle->description,
             'estado'            =>  (string)   $cycle->state,
             'cantidad'          =>  (int)   $cycle->quantity,
-            'duracion'          => (string) $cycle->duration,
-            'inicio'            => (string) $cycle->start_date,
-            'fin'               => (string) $cycle->end_date,
+            'duracion'          =>  (string) $cycle->duration,
+            'inicio'            =>  (string) $cycle->start_date,
+            'fin'               =>  (string) $cycle->end_date,
+            'categoria_moodle_id'=> (int)   $cycle->category_moodle_id,
             'links' =>[
                 [
                     'rel'   =>  'self',
@@ -53,8 +54,12 @@ class CycleTransformer extends TransformerAbstract
                 [
                     'rel'   => 'cycle.representatives',
                     'href'  =>  route('cycles.representatives.index',$cycle->id),
-
                 ],
+                [
+                    'rel'   => 'category_moodle',
+                    'href'  =>  route('moodlecategories.show',$cycle->category_moodle_id),
+
+                ]
             ]
         ];
     }
@@ -66,9 +71,10 @@ class CycleTransformer extends TransformerAbstract
             'descripcion'           => 'description',
             'cantidad'              => 'quantity',
             'duracion'              => 'duration',
-            'estado'                =>  'state',
-            'inicio'                =>  'start_date',
+            'estado'                => 'state',
+            'inicio'                => 'start_date',
             'fin'                   => 'end_date',
+            'categoria_moodle_id'   => 'category_moodle_id',
             'fechaCreacion'         => 'created_at',
             'fechaActualizacion'    => 'updated_at',
             'fechaEliminacion'      => 'deleted_at',
@@ -78,17 +84,18 @@ class CycleTransformer extends TransformerAbstract
 
     public static function transformedAttribute($index){
         $attributes = [
-            'id'            => 'id',
-            'name'          => 'nombre',
-            'description'   => 'descripcion',
-            'quantity'      => 'cantidad',
-            'duration'      => 'duracion',
-            'state'         => 'estado',
-            'start_date'    => 'inicio',
-            'end_date'      => 'fin',
-            'created_at'    => 'fechaCreacion',
-            'updated_at'    => 'fechaActualizacion',
-            'deleted_at'    => 'fechaEliminacion',
+            'id'                    => 'id',
+            'name'                  => 'nombre',
+            'description'           => 'descripcion',
+            'quantity'              => 'cantidad',
+            'duration'              => 'duracion',
+            'state'                 => 'estado',
+            'start_date'            => 'inicio',
+            'end_date'              => 'fin',
+            'category_moodle_id'    => 'categoria_moodle_id',
+            'created_at'            => 'fechaCreacion',
+            'updated_at'            => 'fechaActualizacion',
+            'deleted_at'            => 'fechaEliminacion',
         ];
 
         return isset($attributes[$index]) ? $attributes[$index] : null;

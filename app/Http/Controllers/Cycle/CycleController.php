@@ -35,13 +35,13 @@ class CycleController extends ApiController
         $this->allowedAdminAction();
 
         $rules = [
-            'name'          => 'required|string|min:2',
-            'quantity'      => 'integer| required',
-            'duration'      => 'required|string|min:2',
-            'state'         => 'string',
-            'start_date'    => 'date',
-            'end_date'      => 'date',
-
+            'name'              => 'required|string|min:2',
+            'quantity'          => 'integer| required',
+            'duration'          => 'required|string|min:2',
+            'state'             => 'string',
+            'start_date'        => 'date',
+            'end_date'          => 'date',
+            'category_moodle_id'=>'integer'
         ];  
         $this->validate($request,$rules);
 
@@ -72,6 +72,7 @@ class CycleController extends ApiController
             'state'         => 'string',
             'start_date'    => 'date',
             'end_date'      => 'date',
+            'category_moodle_id'=>'integer'
         ];
         $this->validate($request,$rules);
         if($request->has('name')){
@@ -94,6 +95,9 @@ class CycleController extends ApiController
         }
         if($request->has('end_date')){
             $cycle->end_date=$request->end_date;
+        }
+        if($request->has('category_moodle_id')){
+            $cycle->category_moodle_id=$request->category_moodle_id;
         }
         if(!$cycle->isDirty()){
             return $this->errorResponse('Se debe especificar al menos un valor diferente para actualizar',422);
