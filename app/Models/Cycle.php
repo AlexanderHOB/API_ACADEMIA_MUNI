@@ -13,10 +13,11 @@ class Cycle extends Model
 {
     use HasFactory,SoftDeletes;
     public $transformer = CycleTransformer::class;
-    const CYCLE_AVAILABLE='disponible';
-    const CYCLE_FINISH='culminado';
-    const CYCLE_PROX='proximamente';
 
+    const CYCLE_PENDING='pendiente';
+    const CYCLE_PROGRESS='aprobado';
+    const CYCLE_DISAPPROVED = 'desaprobado';
+    const CYCLE_TIMEOUT='terminado';
 
     protected $dates = ['deleted_at'];
 

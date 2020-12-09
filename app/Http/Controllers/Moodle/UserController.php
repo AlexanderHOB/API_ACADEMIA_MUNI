@@ -47,6 +47,7 @@ class UserController extends Controller
                     $userMoodle->city         = 'Huancayo';
                     $userMoodle->save();
                 DB::commit();
+                return $userMoodle;
             }
         } catch (Exception $e){
             if ($e instanceof QueryException ){

@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\ApiController;
 use App\Transformers\EnrollmentTransformer;
 use App\Http\Controllers\Moodle\UserController;
+use App\Http\Controllers\Moodle\CourseMoodleController;
 
 class EnrollmentStudentCycleController extends ApiController
 { 
@@ -50,7 +51,8 @@ class EnrollmentStudentCycleController extends ApiController
         if($request->has('state')){
             $enrollment->state=$request->state;
             if($request->state === Enrollment::STATE_PROGRESS){
-                app(UserController::class)->store($student);
+                $user=app(UserController::class)->store($student);
+                app(CourseMoodleController::class)->enrollCourses($enrollment->career_id,$user->id);
             }
         }
         if(!$enrollment->isDirty()){

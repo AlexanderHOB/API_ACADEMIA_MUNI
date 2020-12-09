@@ -103,8 +103,9 @@ Route::resource('enrollments','Enrollment\EnrollmentController',['only'=>['index
 */
 Route::resource('moodleusers','Moodle\UserController',['only'=>['index','store']]);
 Route::resource('moodlecategories','Moodle\CategoryMoodleController',['only'=>['index','show']]);
+Route::resource('moodlecourses','Moodle\CourseMoodleController',['only'=>['index','show']]);
 
-
+Route::post('moodleEnroll/{id}','Moodle\CourseMoodleController@enrollCourses');
 
 Route::name('verify')->get('users/verify/{token}','User\UserController@verify');
 Route::name('resend')->get('users/{user}/resend','User\UserController@resend');

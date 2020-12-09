@@ -41,7 +41,7 @@ class CycleController extends ApiController
             'state'             => 'string',
             'start_date'        => 'date',
             'end_date'          => 'date',
-            'category_moodle_id'=>'integer'
+            'category_moodle_id'=>'required|integer'
         ];  
         $this->validate($request,$rules);
 

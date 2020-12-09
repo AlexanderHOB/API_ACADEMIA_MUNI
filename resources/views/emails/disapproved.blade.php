@@ -3,7 +3,7 @@
 # Hola {{$user->name}}
 
 ## Su matrícula realizada no cumple con los requisitos necesarios,
-## Por favor, Vuelva a matricularse y cumpla con los requisitos correctamente.
+## Por favor, vuelva a matricularse y cumpla con los requisitos correctamente.
 
 {{-- {{ HTML::image('assets/images/vouchers/1.jpg', 'alt text', array('class' => 'css-class')) }} --}}
 

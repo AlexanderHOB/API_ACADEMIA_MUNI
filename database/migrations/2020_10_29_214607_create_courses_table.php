@@ -46,6 +46,13 @@ class CreateCoursesTable extends Migration
         DB::table('courses')->insert(array('id'=>'19','name'=>'Economía'));
         DB::table('courses')->insert(array('id'=>'20','name'=>'Psicología'));
         DB::table('courses')->insert(array('id'=>'21','name'=>'Filosofía'));
+        DB::table('courses')->insert(array('id'=>'22','name'=>'Examen Tipo Admisión Área I'));
+        DB::table('courses')->insert(array('id'=>'23','name'=>'Examen Tipo Admisión Área II'));
+        DB::table('courses')->insert(array('id'=>'24','name'=>'Examen Tipo Admisión Área III'));
+        DB::table('courses')->insert(array('id'=>'25','name'=>'Examen Tipo Admisión Área IV'));
+        DB::table('courses')->insert(array('id'=>'26','name'=>'Examen Tipo Admisión Área V'));
+        DB::table('courses')->insert(array('id'=>'27','name'=>'Lenguaje'));
+
 
 
 

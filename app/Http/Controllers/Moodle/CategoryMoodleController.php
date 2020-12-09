@@ -12,6 +12,7 @@ class CategoryMoodleController extends Controller
     public function index()
     {
         $categories = CategoryMoodle::select('id','name','parent')->get();
+        $categoriesM=[];
         foreach($categories as $category){
             if($category->parent !=0){
                 $parent = CategoryMoodle::select('name')->where('id','=',$category->parent)->first();
@@ -19,9 +20,12 @@ class CategoryMoodleController extends Controller
             }else{
                 $category->parent='';
             }
+            $cat['value'] = $category->id;
+            $cat['text'] = $category->name .'-'.$category->parent;
+            array_push($categoriesM,$cat);
         }
         
-        return response()->json(['data'=>$categories]);
+        return response()->json(['data'=>$categoriesM]);
     }
     public function show($id)
     {

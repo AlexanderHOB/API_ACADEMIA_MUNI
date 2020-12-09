@@ -7,7 +7,7 @@
 ## <b>Contraseña: La misma de la plataforma</b>
 
 {{-- {{ HTML::image('assets/images/vouchers/1.jpg', 'alt text', array('class' => 'css-class')) }} --}}
-
+Ingresa al aula virtual clickeando el siguiente botón.
 @component('mail::button', ['url' => 'https://aula-virtual.academia-el-tambo.teampixeland.com/'])
 Aula Virtual 
 @endcomponent
