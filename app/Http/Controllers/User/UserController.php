@@ -52,6 +52,7 @@ class UserController extends ApiController
         $user['admin'] = request()->user()->admin;
         $user['correo'] = request()->user()->email;
         $user['rol_id'] = request()->user()->role_id;
+        
 
         return response()->json($user);
     }

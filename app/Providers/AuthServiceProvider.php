@@ -39,7 +39,8 @@ class AuthServiceProvider extends ServiceProvider
             return $user->isAdmin();
         });
         Passport::routes(null, ['prefix' => 'api/oauth']);
-        Passport::tokensExpireIn(Carbon::now()->addMinutes(120));
+
+        Passport::tokensExpireIn(Carbon::now()->addDays(30));
         Passport::refreshTokensExpireIn(Carbon::now()->addMinutes(180));
     }
 }
