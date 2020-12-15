@@ -64,7 +64,7 @@ class UserController extends Controller
         
     }
 
-    /**
+    /**g
      * Display the specified resource.
      *
      * @param  \App\Models\UserMoodle  $userMoodle

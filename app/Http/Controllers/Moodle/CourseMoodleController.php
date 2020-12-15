@@ -36,7 +36,6 @@ class CourseMoodleController extends Controller
 
     public function enrollCourses($career_id,$user_id)
     {
-        dd("Legue");
         $career =   Career::where('id','=',$career_id)->first();
         $area   =   Area::findOrFail($career->area->id);
         $courseArea = $area->courses()->select('name')->get();
