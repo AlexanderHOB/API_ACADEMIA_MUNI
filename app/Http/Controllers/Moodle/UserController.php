@@ -31,8 +31,9 @@ class UserController extends Controller
      */
     public function store(Student $student)
     {
+        $userMoodle = UserMoodle::where('username','=',$student->dni)->exists();
         try{
-            if(!$userMoodle = UserMoodle::where('username','=',$student->dni)->exists()){
+            if(!$userMoodle){
                 $user = User::FindOrFail($student->id);
                 DB::beginTransaction();
                     $userMoodle = new UserMoodle();
