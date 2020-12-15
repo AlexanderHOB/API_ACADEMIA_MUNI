@@ -50,6 +50,7 @@ class UserController extends Controller
                 DB::commit();
                 return $userMoodle;
             }
+            return "Usuario Existente";
         } catch (Exception $e){
             if ($e instanceof QueryException ){
                 return 'Usuario Existente!';
