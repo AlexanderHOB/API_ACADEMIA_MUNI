@@ -99,7 +99,7 @@ class Handler extends ExceptionHandler
         if(config('app.debug')){
             return parent::render($request, $exception);
         }
-        return $this->errorResponse('Falla inesperada. Intente luego',500);
+        return $this->errorResponse('Falla inesperada. Intente luego' . $exception,500);
 
     }
     protected function unauthenticated($request, AuthenticationException $exception)
