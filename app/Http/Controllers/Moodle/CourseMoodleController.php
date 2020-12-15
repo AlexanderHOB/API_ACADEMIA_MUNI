@@ -48,10 +48,10 @@ class CourseMoodleController extends Controller
                 $course_id = CourseMoodle::select('id')
                 ->where('fullname','like','%'. $course->name .'%')
                 ->first();
-                dd($course_id);
                 $enroll_id = EnrollDataMoodle::select('id')
                 ->where([['courseid','=',$course_id->id],['enrol','=','manual']])
                 ->first();
+                dd($enroll_id);
                 $datos['enrolid']   = $enroll_id->id;
                 $datos['userid']    = $user_id;
                 EnrollMoodle::create($datos);
