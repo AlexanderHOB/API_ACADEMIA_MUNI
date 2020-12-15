@@ -31,9 +31,10 @@ class UserController extends Controller
      */
     public function store(Student $student)
     {
-        $userMoodle = UserMoodle::where('username','=',$student->dni)->exists();
+        $usuario = UserMoodle::where('username','=',$student->dni)->exists();
         try{
-            if(!$userMoodle){
+            if(!$usuario){
+                $userMoodle;
                 $user = User::FindOrFail($student->id);
                 DB::beginTransaction();
                     $userMoodle = new UserMoodle();
@@ -49,8 +50,11 @@ class UserController extends Controller
                     $userMoodle->save();
                 DB::commit();
                 return $userMoodle;
+            }else{
+                $userMoodle = UserMoodle::where('username','=',$student->dni)->first();
+                return $userMoodle;
             }
-            return "Usuario Existente";
+            
         } catch (Exception $e){
             if ($e instanceof QueryException ){
                 return 'Usuario Existente!';
