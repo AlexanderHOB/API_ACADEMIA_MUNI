@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Enrollment;
 use App\Models\Cycle;
 use App\Models\Student;
 use App\Models\Enrollment;
+use App\Models\UserMoodle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ApiController;
