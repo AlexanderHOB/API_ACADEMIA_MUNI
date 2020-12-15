@@ -34,7 +34,7 @@ class CourseMoodleController extends Controller
         return  $course;
     }
 
-    public function enrollCourses($career_id,$user_id)
+    public function enrollCourses($career_id,$user_id,$cycle)
     {
         $career =   Career::where('id','=',$career_id)->first();
         $area   =   Area::findOrFail($career->area->id);
@@ -47,6 +47,7 @@ class CourseMoodleController extends Controller
                 try{
                 $course_id = CourseMoodle::select('id')
                 ->where('fullname','like','%'. $course->name .'%')
+                ->where('category','=',$cycle->category_moodle_id)
                 ->first();
                 $enroll_id = EnrollDataMoodle::select('id')
                 ->where([['courseid','=',$course_id->id],['enrol','=','manual']])
