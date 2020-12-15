@@ -53,7 +53,8 @@ class CourseMoodleController extends Controller
                 ->first();
                 $datos['enrolid']   = $enroll_id->id;
                 $datos['userid']    = $user_id->id;
-                EnrollMoodle::create($datos);
+                $en = EnrollMoodle::create($datos);
+                dd($en);
                 }catch(Exception $e){
                     $tmp =response()->json(['error'=>'Problemas con el curso'.$course],401);
                     array_push($error,$tmp); 
