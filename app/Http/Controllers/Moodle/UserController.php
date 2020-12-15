@@ -52,7 +52,7 @@ class UserController extends Controller
             }
         } catch (Exception $e){
             if ($e instanceof QueryException ){
-                return 'Error regarding DB';
+                return 'Usuario Existente!';
             }
             return response()->json(['error'=>$e]);
         }

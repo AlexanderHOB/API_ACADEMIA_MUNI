@@ -52,9 +52,8 @@ class EnrollmentStudentCycleController extends ApiController
         if($request->has('state')){
             $enrollment->state=$request->state;
             if($request->state === Enrollment::STATE_PROGRESS){
-                if(!UserMoodle::where('username','=',$student->dni)->exists()){
-                    $user=app(UserController::class)->store($student);
-                }
+                $user=app(UserController::class)->store($student);
+                dd($user);
                 $moodle=app(CourseMoodleController::class)->enrollCourses($enrollment->career_id,$user->id);
             }
         }
