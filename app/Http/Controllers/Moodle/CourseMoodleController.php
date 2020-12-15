@@ -44,6 +44,7 @@ class CourseMoodleController extends Controller
             $error=[];
             //El curso existe
             if(CourseMoodle::where('fullname','like','%'. $course->name .'%')->exists()){
+                dd($course);
                 try{
                 $course_id = CourseMoodle::select('id')
                 ->where('fullname','like','%'. $course->name .'%')
