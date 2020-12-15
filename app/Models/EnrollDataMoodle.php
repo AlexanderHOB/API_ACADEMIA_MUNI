@@ -10,7 +10,7 @@ class EnrollDataMoodle extends Model
     use HasFactory;
     public $timestamps = false;
     protected $connection = 'mysql2';
-    protected $table='mdl_enrol';
+    protected $table='mdltc_enrol';
     protected $fillable=[
         'enrol',
     ];

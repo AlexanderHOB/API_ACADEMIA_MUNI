@@ -41,6 +41,7 @@ class CourseMoodleController extends Controller
         $courseArea = $area->courses()->select('name')->get();
         foreach($courseArea as $course){
             $datos=[];
+            $error=[];
             //El curso existe
             if(CourseMoodle::where('fullname','like','%'. $course->name .'%')->exists()){
                 try{
@@ -54,9 +55,13 @@ class CourseMoodleController extends Controller
                 $datos['userid']    = $user_id;
                 EnrollMoodle::create($datos);
                 }catch(Exception $e){
-                    return response()->json(['error'=>$e],401);
+                    $tmp =response()->json(['error'=>'Problemas con el curso'.$course],401);
+                    array_push($error,$tmp); 
                 }
             }
+        }
+        if(count($error)>0){
+            return $error;
         }
 
         return $courseArea;
