@@ -49,7 +49,6 @@ class CourseMoodleController extends Controller
                 ->where('fullname','like','%'. $course->name .'%')
                 ->where('category','=',$cycle_category)
                 ->first();
-                dd($course_id);
                 $enroll_id = EnrollDataMoodle::select('id')
                 ->where([['courseid','=',$course_id->id],['enrol','=','manual']])
                 ->first();
