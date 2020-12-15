@@ -15,7 +15,7 @@ class UserMoodle extends Model
     
     public $timestamps = false;
     protected $connection = 'mysql2';
-    protected $table='mdl_user';
+    protected $table='mdltc_user';
     protected $fillable=[
         'auth',
         'mnethostid',
