@@ -51,10 +51,9 @@ class CourseMoodleController extends Controller
                 $enroll_id = EnrollDataMoodle::select('id')
                 ->where([['courseid','=',$course_id->id],['enrol','=','manual']])
                 ->first();
-                dd($user_id);
                 $datos['enrolid']   = $enroll_id->id;
                 $datos['userid']    = $user_id;
-                $en = EnrollMoodle::create($datos);
+                EnrollMoodle::create($datos);
                 dd($en);
                 }catch(Exception $e){
                     $tmp =response()->json(['error'=>'Problemas con el curso'.$course],401);
