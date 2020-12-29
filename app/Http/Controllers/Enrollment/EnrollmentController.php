@@ -41,7 +41,7 @@ class EnrollmentController extends ApiController
 
     public function enrolleds()
     {
-        $enrollments = Enrollment::get()->distinct();
+        $enrollments = Enrollment::distinct()->get();
 
         return $this->showAll($enrollments);
     }
