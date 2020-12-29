@@ -21,7 +21,7 @@ class EnrollmentController extends ApiController
     }
     public function index()
     {
-        $this->allowedAdminAction();
+        // $this->allowedAdminAction();
 
         $enrollments = Enrollment::get();
 
@@ -39,12 +39,13 @@ class EnrollmentController extends ApiController
         return $this->showOne($enrollment);
     }
 
-    public function enrolleds()
-    {
-        $enrollments = Enrollment::distinct()->get();
+    // public function enrolleds()
+    // {
+    //     $enrollments = Enrollment::select('student_id','cycle_id','career_id')->distinct()->get()->count();
 
-        return $this->showAll($enrollments);
-    }
+    //     return $this->showAll($enrollments);
+    //     return $enrollments;
+    // }
 
 }
 
