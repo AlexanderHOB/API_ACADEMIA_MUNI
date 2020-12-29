@@ -39,5 +39,12 @@ class EnrollmentController extends ApiController
         return $this->showOne($enrollment);
     }
 
+    public function enrolleds()
+    {
+        $enrollments = Enrollment::get();
+
+        return $this->showAll($enrollments);
+    }
+
 }
 

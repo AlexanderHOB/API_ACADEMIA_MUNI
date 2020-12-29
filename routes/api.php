@@ -97,6 +97,7 @@ Route::resource('vouchers.enrollments','Voucher\VoucherEnrollmentController',['o
  * Enrollment
  */
 Route::resource('enrollments','Enrollment\EnrollmentController',['only'=>['index','show']]);
+Route::get('enrolleds','Enrollment\EnrollmentController@enrolleds');
 
 /*
 / Moodle
