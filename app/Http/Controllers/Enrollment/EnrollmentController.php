@@ -11,7 +11,7 @@ class EnrollmentController extends ApiController
     public function __construct()
     {
         // token 
-        $this->middleware('auth:api');
+        // $this->middleware('auth:api');
 
         $this->middleware('transform.input:'. RepresentativeTransformer::class)->only(['store','update']);
 
@@ -41,7 +41,7 @@ class EnrollmentController extends ApiController
 
     public function enrolleds()
     {
-        $enrollments = Enrollment::get();
+        $enrollments = Enrollment::get()->distinct();
 
         return $this->showAll($enrollments);
     }
